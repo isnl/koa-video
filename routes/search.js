@@ -5,7 +5,7 @@ const { BASE_URL } = require("../config");
 router.prefix("/search");
 
 /**
- * 根据关键字搜索
+ * 根据关键字搜索  后面考虑不返回各大影视的擦边球类型的结果
  */
 router.get("/", async function (ctx, next) {
   let originUrl; //源站
