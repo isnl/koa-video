@@ -1,7 +1,7 @@
 const cheerio = require("cheerio");
 const request = require("request");
 const router = require("koa-router")();
-const { BASE_URL } = require("../config");
+const { BASE_URL, SENSITIVE_WORDS } = require("../config");
 router.prefix("/search");
 
 /**
@@ -22,7 +22,7 @@ router.get("/", async function (ctx, next) {
   if (!keyword) {
     ctx.body = {
       message: "参数不合法",
-      status: false
+      status: false,
     };
     return;
   }
@@ -32,7 +32,7 @@ router.get("/", async function (ctx, next) {
   } catch (error) {
     ctx.body = {
       message: error.message,
-      status: false
+      status: false,
     };
   }
 });
@@ -46,8 +46,8 @@ function getSearchResult(keyword, url) {
     url: `${url}/index.php?m=vod-search`,
     formData: {
       wd: keyword,
-      submit: "search"
-    }
+      submit: "search",
+    },
   };
   return new Promise((resolve, reject) => {
     request(options, function (err, res) {
@@ -56,11 +56,13 @@ function getSearchResult(keyword, url) {
       let urlArray = [];
       $(".xing_vb ul").each((index, item) => {
         //将此页面中的所有链接url获取出来
-        if (index !== 0 && index !== $(".xing_vb ul").length - 1) {
-          const aLink = $(item).children("li").find(".xing_vb4 a");
+        const $li = $(item).children("li");
+        const aLink = $li.find(".xing_vb4 a");
+        const type = $li.find(".xing_vb5").text();
+        if (index !== 0 && index !== $(".xing_vb ul").length - 1 && !SENSITIVE_WORDS.includes(type)) {
           urlArray.push({
             name: aLink.text(),
-            url: aLink.attr("href")
+            url: aLink.attr("href"),
           });
         }
       });
