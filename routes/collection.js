@@ -1,7 +1,7 @@
 const cheerio = require("cheerio");
 const request = require("request");
 const router = require("koa-router")();
-const { BASE_URL, BASE_CONSTANCE } = require("../config");
+const { BASE_URL, BASE_CONSTANCE, NOT_FOUNT_MESSAGE } = require("../config");
 router.prefix("/collection");
 
 /**
@@ -13,7 +13,7 @@ router.get("/", async function (ctx, next) {
   if (!m) {
     ctx.body = {
       message: "参数不合法",
-      status: false
+      status: false,
     };
     return;
   }
@@ -23,7 +23,7 @@ router.get("/", async function (ctx, next) {
   } catch (error) {
     ctx.body = {
       message: error.message,
-      status: false
+      status: false,
     };
   }
 });
@@ -34,6 +34,10 @@ function getDetailsByUrl(m, o) {
         reject(err);
       }
       const $jQ = cheerio.load(res.body);
+      const bodyText = $jQ("body").text().trim();
+      if (NOT_FOUNT_MESSAGE[o].includes(bodyText)) {
+        reject(new Error("参数错误,请检查"))
+      }
       //将当前项写入数据库
       let imagePic = $jQ(".vodImg img").attr("src"); //缩略图   有问题
       let name = $jQ(".vodh h2").text(); //名称
@@ -66,7 +70,7 @@ function getDetailsByUrl(m, o) {
               const [grade, url] = $jQ(s).text().split("$");
               list.push({
                 grade,
-                url
+                url,
               });
             });
           playInfo.push({
@@ -82,7 +86,7 @@ function getDetailsByUrl(m, o) {
                 return spanText;
               }
             })(),
-            list
+            list,
           });
         });
       let downloadInfo = []; //下载链接
@@ -92,7 +96,7 @@ function getDetailsByUrl(m, o) {
         .each((j, s) => {
           downloadInfo.push({
             grade: $jQ(s).text().split("$")[0],
-            url: $jQ(s).text().split("$")[1]
+            url: $jQ(s).text().split("$")[1],
           });
         });
       resolve({
@@ -110,7 +114,7 @@ function getDetailsByUrl(m, o) {
         updateTime,
         introduce,
         playInfo,
-        downloadInfo
+        downloadInfo,
       });
     });
   });

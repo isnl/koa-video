@@ -10,6 +10,7 @@ const co = require("co");
 const index = require("./routes/index");
 const search = require("./routes/search");
 const details = require("./routes/details");
+const collection = require("./routes/collection");
 
 // error handler
 onerror(app);
@@ -36,6 +37,8 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods());
 app.use(search.routes(), search.allowedMethods());
 app.use(details.routes(), details.allowedMethods());
+app.use(collection.routes(), collection.allowedMethods());
+
 
 app.context.render = co.wrap(
   Swig({
