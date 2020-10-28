@@ -1,0 +1,39 @@
+.container {
+  margin-bottom: 1rem;
+  box-shadow: 0 0 5px rgba(153, 153, 153, .2);
+
+
+  .row {
+    padding: 1rem;
+    border-radius: .5rem;
+    box-sizing: border-box;
+  }
+
+  .cover-box {
+
+    .card-text {
+      margin-bottom: 0.05rem;
+    }
+
+    .col-md-3 {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .card-img {
+        width: 11rem;
+      }
+    }
+
+    .col-md-4 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
+
+
+  .video-play {
+    min-height: 30rem;
+  }
+}
