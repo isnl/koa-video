@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const cheerio = require("cheerio");
 const request = require("request");
 const router = require("koa-router")();
@@ -8,22 +10,41 @@ router.prefix("/collection");
  * 资源详情
  */
 router.get("/", async function (ctx, next) {
-  // console.log("params", ctx.params);
   const { m, o = BASE_CONSTANCE.zuidazy } = ctx.query;
   if (!m) {
     ctx.body = {
       message: "参数不合法",
-      status: false,
+      status: false
     };
     return;
   }
   try {
-    ctx.body = await getDetailsByUrl(m, o);
-    // console.log({ m, o });
+    //判断当前采集对象是否已经存在
+    let noSuffix = m.replace(".html", "");
+    const url = path.resolve(__dirname, `../views/${o}/json/${noSuffix}.json`);
+    const exist = await fs.existsSync(url);
+    if (exist) {
+      ctx.body = {
+        status: false,
+        message: "当前资源已存在，请勿重复采集"
+      };
+      return;
+    }
+    // 写入文件
+    const data = await getDetailsByUrl(m, o);
+    await fs.writeFileSync(
+      path.resolve(__dirname, `../views/${o}/json/${noSuffix}.json`),
+      JSON.stringify(data),
+      "utf-8"
+    );
+    ctx.body = {
+      status: true,
+      message: "采集成功"
+    };
   } catch (error) {
     ctx.body = {
       message: error.message,
-      status: false,
+      status: false
     };
   }
 });
@@ -36,9 +57,8 @@ function getDetailsByUrl(m, o) {
       const $jQ = cheerio.load(res.body);
       const bodyText = $jQ("body").text().trim();
       if (NOT_FOUNT_MESSAGE[o].includes(bodyText)) {
-        reject(new Error("参数错误,请检查"))
+        reject(new Error("参数错误,请检查"));
       }
-      //将当前项写入数据库
       let imagePic = $jQ(".vodImg img").attr("src"); //缩略图   有问题
       let name = $jQ(".vodh h2").text(); //名称
       let playGrade = $jQ(".vodh span").text(); //播放等级
@@ -62,31 +82,13 @@ function getDetailsByUrl(m, o) {
         .children(".vodplayinfo")
         .children("div")
         .children()
-        .each((i, k) => {
-          let list = [];
-          $jQ(k)
-            .find("li")
-            .each((j, s) => {
-              const [grade, url] = $jQ(s).text().split("$");
-              list.push({
-                grade,
-                url,
-              });
-            });
+        .eq(0)
+        .find("li")
+        .each((j, s) => {
+          const [grade, url] = $jQ(s).text().split("$");
           playInfo.push({
-            type: (() => {
-              const spanText = $jQ(k)
-                .children("h3")
-                .find("span")
-                .text()
-                .substring(5);
-              if (spanText == "ll") {
-                return "all";
-              } else {
-                return spanText;
-              }
-            })(),
-            list,
+            grade,
+            url
           });
         });
       let downloadInfo = []; //下载链接
@@ -96,7 +98,7 @@ function getDetailsByUrl(m, o) {
         .each((j, s) => {
           downloadInfo.push({
             grade: $jQ(s).text().split("$")[0],
-            url: $jQ(s).text().split("$")[1],
+            url: $jQ(s).text().split("$")[1]
           });
         });
       resolve({
@@ -114,7 +116,7 @@ function getDetailsByUrl(m, o) {
         updateTime,
         introduce,
         playInfo,
-        downloadInfo,
+        downloadInfo
       });
     });
   });
