@@ -39,7 +39,6 @@ app.use(search.routes(), search.allowedMethods());
 app.use(details.routes(), details.allowedMethods());
 app.use(collection.routes(), collection.allowedMethods());
 
-
 app.context.render = co.wrap(
   Swig({
     // 2. 配置

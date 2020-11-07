@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>{{ name + "在线播放 - 哎呦影视采集站" }}</title>
+    <link rel="stylesheet" href="/css/template.css" />
+    <link
+      rel="stylesheet"
+      href="https://g.alicdn.com/de/prismplayer/2.9.0/skins/default/aliplayer-min.css"
+    />
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- 导航栏 -->
+    <div class="container nav-container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"
+                >首页 <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://iiter.cn">艾特网</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://iiter.cn">薅羊毛</a>
+            </li>
+          </ul>
+          <form class="form-inline">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="请输入搜索内容......"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </nav>
+    </div>
+    <!-- 详情信息 -->
+    <div class="container">
+      <div class="row cover-box">
+        <div class="col-md-3">
+          <img src="{{imagePic}}" class="card-img" alt="" />
+        </div>
+        <div class="col-md-5">
+          <div class="card-body">
+            <h5 class="card-title">{{name}} <span>{{playGrade}}</span></h5>
+            <p class="card-text">
+              <small class="text-muted">评分：{{score}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">别名：{{otherName}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">导演：{{daoyan}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">主演：{{zhuyan}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">类型：{{type}}</small>
+            </p>
+
+            <p class="card-text">
+              <small class="text-muted">地区：{{place}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">语言：{{language}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">上映：{{showTime}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">更新时间：{{updateTime}}</small>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-body">
+            <p class="card-text">
+              <small class="text-muted">评分：{{score}}</small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">简介：{{introduce}}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 视频播放器 -->
+    <div class="container video-container">
+      <div class="row video-play" id="video-play"></div>
+    </div>
+    <!-- 播放列表 -->
+    <div class="container play-list">
+      <h5>播放列表</h5>
+      <!-- <div class="row list-container"> -->
+      <div
+        class="row list-container btn-group play-list-box"
+        role="group"
+        aria-label="First group"
+      >
+        {% for item in playInfo%}
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-src="{{item.grade + '$' + item.url}}"
+        >
+          {{item.grade}}
+        </button>
+        {% endfor %}
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- 下载列表 -->
+    <div class="container">
+      <h5>下载列表</h5>
+      <p>
+        <a href="javascript:;" class="badge badge-info copy-all"
+          >复制全部名称+链接</a
+        >
+        <a href="javascript:;" class="badge badge-dark copy-all-link"
+          >复制全部链接</a
+        >
+      </p>
+      <div class="row">
+        <ul class="list-group list-group-flush download-list">
+          {% for item in downloadInfo%}
+          <li class="list-group-item">
+            <small class="text-muted">{{item.grade + "$" + item.url}}</small>
+            <a href="javascript:;" class="badge badge-success copy-one-link"
+              >复制链接</a
+            >
+            <a href="javascript:;" class="badge badge-success copy-one-all"
+              >复制全部</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- 底部 -->
+    <div class="container footer">
+      <p class="text-muted">
+        本站所有资源均收集自互联网，没有提供影片资源存储，也未参与录制、上传。
+      </p>
+      <p class="text-muted">
+        若本站收录的资源涉及您的版权或知识产权或其他利益，请附上版权证明邮件告知。
+      </p>
+      <p class="text-muted"><span class="get-email">获取邮箱</span></p>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="https://g.alicdn.com/de/prismplayer/2.9.0/aliplayer-min.js"></script>
+  <script src="/layer/layer.js"></script>
+  <script src="/js/common.js"></script>
+</html>

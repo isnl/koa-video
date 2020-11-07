@@ -1,6 +1,7 @@
 body .nav-container {
   padding: 0;
 }
+
 .container {
   padding: 1rem 0;
   border-radius: .5rem;
@@ -21,7 +22,6 @@ body .nav-container {
 
     .col-md-3 {
       display: flex;
-      justify-content: flex-end;
       align-items: center;
 
       .card-img {
@@ -38,5 +38,39 @@ body .nav-container {
 
   .video-play {
     min-height: 30rem;
+  }
+}
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  button {
+    margin-bottom: 10px;
+    border-radius: 0;
+  }
+}
+
+.footer {
+  padding: 0.5rem 0;
+  background: #222;
+  border-radius: 0;
+  margin: 0;
+
+  p {
+    text-align: center;
+    font-size: 12px;
+    margin: 0;
+
+    span {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 }
