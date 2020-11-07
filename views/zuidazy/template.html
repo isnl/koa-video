@@ -7,60 +7,12 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>{{ name + "在线播放 - 哎呦影视采集站" }}</title>
-    <link rel="stylesheet" href="/css/template.css" />
-    <link
-      rel="stylesheet"
-      href="https://g.alicdn.com/de/prismplayer/2.9.0/skins/default/aliplayer-min.css"
-    />
-    <link
-      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    {% include '../layouts/static.html' %}
   </head>
 
   <body>
     <!-- 导航栏 -->
-    <div class="container nav-container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarText"
-          aria-controls="navbarText"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"
-                >首页 <span class="sr-only">(current)</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://iiter.cn">艾特网</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://iiter.cn">薅羊毛</a>
-            </li>
-          </ul>
-          <form class="form-inline">
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              placeholder="请输入搜索内容......"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-      </nav>
-    </div>
+    {% include '../layouts/header.html' %}
     <!-- 详情信息 -->
     <div class="container">
       <div class="row cover-box">
@@ -102,9 +54,6 @@
         </div>
         <div class="col-md-4">
           <div class="card-body">
-            <p class="card-text">
-              <small class="text-muted">评分：{{score}}</small>
-            </p>
             <p class="card-text">
               <small class="text-muted">简介：{{introduce}}</small>
             </p>
@@ -165,19 +114,7 @@
       </div>
     </div>
     <!-- 底部 -->
-    <div class="container footer">
-      <p class="text-muted">
-        本站所有资源均收集自互联网，没有提供影片资源存储，也未参与录制、上传。
-      </p>
-      <p class="text-muted">
-        若本站收录的资源涉及您的版权或知识产权或其他利益，请附上版权证明邮件告知。
-      </p>
-      <p class="text-muted"><span class="get-email">获取邮箱</span></p>
-    </div>
+    {% include '../layouts/footer.html' %}
   </body>
-  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
-  <script src="https://g.alicdn.com/de/prismplayer/2.9.0/aliplayer-min.js"></script>
-  <script src="/layer/layer.js"></script>
-  <script src="/js/common.js"></script>
 </html>
+<script src="/js/details.js"></script>
