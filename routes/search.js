@@ -22,17 +22,18 @@ router.get("/", async function (ctx, next) {
   if (!keyword) {
     ctx.body = {
       message: "参数不合法",
-      status: false,
+      status: false
     };
     return;
   }
   try {
     const data = await getSearchResult(keyword, originUrl);
-    ctx.body = data;
+    console.log("data", data);
+    await ctx.render("search.html", { list: data });
   } catch (error) {
     ctx.body = {
       message: error.message,
-      status: false,
+      status: false
     };
   }
 });
@@ -46,8 +47,8 @@ function getSearchResult(keyword, url) {
     url: `${url}/index.php?m=vod-search`,
     formData: {
       wd: keyword,
-      submit: "search",
-    },
+      submit: "search"
+    }
   };
   return new Promise((resolve, reject) => {
     request(options, function (err, res) {
@@ -59,10 +60,14 @@ function getSearchResult(keyword, url) {
         const $li = $(item).children("li");
         const aLink = $li.find(".xing_vb4 a");
         const type = $li.find(".xing_vb5").text();
-        if (index !== 0 && index !== $(".xing_vb ul").length - 1 && !SENSITIVE_WORDS.includes(type)) {
+        if (
+          index !== 0 &&
+          index !== $(".xing_vb ul").length - 1 &&
+          !SENSITIVE_WORDS.includes(type)
+        ) {
           urlArray.push({
             name: aLink.text(),
-            url: aLink.attr("href"),
+            url: aLink.attr("href")
           });
         }
       });

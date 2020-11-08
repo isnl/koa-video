@@ -37,6 +37,17 @@ router.get("/", async function (ctx, next) {
       JSON.stringify(data),
       "utf-8"
     );
+    const appendObj = {
+      id: m,
+      name: data.name
+    };
+    // const listPath = path.resolve(__dirname, `../views/${o}/list.json`);
+    // const listData = JSON.stringify(await fs.readFileSync(listPath));
+    // await fs.appendFileSync(
+    //   path.resolve(__dirname, `../views/${o}/list.json`),
+    //   JSON.stringify(appendObj)
+    // );
+    //采集成功直接跳转至详情页面
     ctx.body = {
       status: true,
       message: "采集成功"

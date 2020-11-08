@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>{{ name + "在线播放 - 哎呦影视采集站" }}</title>
+    {% include './layouts/static.html' %}
+  </head>
+
+  <body>
+    <!-- 导航栏 -->
+    {% include './layouts/header.html' %}
+    <div class="container">
+      <strong>已找到以下结果：</strong>
+      <div class="row">
+        <ul class="list-group list-group-flush">
+          {% for key,item in list%}
+          <li class="list-group-item">
+            <small class="text-muted" data-src="{{item.url}}"
+              >{{key + 1}}.</small
+            >
+            <small class="text-muted" data-src="{{item.url}}"
+              >{{item.name}}</small
+            >
+            <a href="javascript:;" class="badge badge-success copy-one-link"
+              >采集</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- 底部 -->
+    {% include './layouts/footer.html' %}
+  </body>
+</html>
