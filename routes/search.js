@@ -38,14 +38,14 @@ router.get("/", async function (ctx, next) {
     data.forEach(item => {
       let equal = false;
       listData.forEach(d => {
-        if (d.id === item.id && d.name === item.name) {
+        if (d.id === item.id) {
           equal = true;
         }
       });
       if (equal) {
-        item.status = "已采集";
+        item.status = true;
       } else {
-        item.status = "采集";
+        item.status = false;
       }
     });
     await ctx.render("search.html", { list: data });
