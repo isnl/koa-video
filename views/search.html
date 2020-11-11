@@ -26,7 +26,7 @@
               >{{item.name}}</small
             >
             <a href="javascript:;" class="badge badge-success copy-one-link"
-              >采集</a
+              >{{item.status?'已采集':"采集"}}</a
             >
           </li>
           {% endfor %}

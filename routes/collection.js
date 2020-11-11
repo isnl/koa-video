@@ -30,24 +30,28 @@ router.get("/", async function (ctx, next) {
       };
       return;
     }
-    // 写入文件
+    // 写入详情.json文件
     const data = await getDetailsByUrl(m, o);
     await fs.writeFileSync(
       path.resolve(__dirname, `../views/${o}/json/${noSuffix}.json`),
       JSON.stringify(data),
       "utf-8"
     );
-    const appendObj = {
-      id: m,
-      name: data.name
-    };
-    // const listPath = path.resolve(__dirname, `../views/${o}/list.json`);
-    // const listData = JSON.stringify(await fs.readFileSync(listPath));
-    // await fs.appendFileSync(
-    //   path.resolve(__dirname, `../views/${o}/list.json`),
-    //   JSON.stringify(appendObj)
-    // );
-    //采集成功直接跳转至详情页面
+    //将当前Id和name写入list.json文件
+    const listPath = path.resolve(__dirname, `../views/${o}/list.json`);
+    const listData = JSON.parse(await fs.readFileSync(listPath, "utf-8"));
+    let existObj = listData.some(
+      item => item.id === m && item.name === data.name
+    );
+    //判断list.json中有无
+    if (!existObj) {
+      listData.push({
+        id: m,
+        name: data.name
+      });
+      await fs.writeFileSync(listPath, JSON.stringify(listData));
+    }
+    //采集成功后直接跳转至详情页面
     ctx.body = {
       status: true,
       message: "采集成功"

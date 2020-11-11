@@ -1,6 +1,8 @@
 const cheerio = require("cheerio");
 const request = require("request");
 const router = require("koa-router")();
+const path = require("path");
+const fs = require("fs");
 const { BASE_URL, SENSITIVE_WORDS } = require("../config");
 router.prefix("/search");
 
@@ -27,8 +29,25 @@ router.get("/", async function (ctx, next) {
     return;
   }
   try {
+    //先获取爬虫得到的数据，再取出本地的数据，用爬虫得到的数据比对本地的数据，优先展示采集过的数据
     const data = await getSearchResult(keyword, originUrl);
-    console.log("data", data);
+    //这里暂时写死
+    let zuida = "zuidazy";
+    const listPath = path.resolve(__dirname, `../views/${zuida}/list.json`);
+    const listData = JSON.parse(await fs.readFileSync(listPath, "utf-8"));
+    data.forEach(item => {
+      let equal = false;
+      listData.forEach(d => {
+        if (d.id === item.id && d.name === item.name) {
+          equal = true;
+        }
+      });
+      if (equal) {
+        item.status = "已采集";
+      } else {
+        item.status = "采集";
+      }
+    });
     await ctx.render("search.html", { list: data });
   } catch (error) {
     ctx.body = {
@@ -67,7 +86,7 @@ function getSearchResult(keyword, url) {
         ) {
           urlArray.push({
             name: aLink.text(),
-            url: aLink.attr("href")
+            id: aLink.attr("href").replace("/?m=", "")
           });
         }
       });
