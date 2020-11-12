@@ -20,3 +20,26 @@ body {
   align-items: center;
   box-shadow: none;
 }
+
+.index-container .head-row {
+  display: flex;
+  align-items: center;
+}
+
+.index-container .search-row {
+  width: 100%;
+}
+
+.index-container .search-row .form-inline {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.index-container .search-row .form-inline .search-input {
+  width: 40%;
+}
+
+.index-container .search-row .form-inline .search-btn {
+  width: 10%;
+}

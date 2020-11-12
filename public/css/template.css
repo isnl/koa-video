@@ -70,3 +70,9 @@ body .nav-container {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.no-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

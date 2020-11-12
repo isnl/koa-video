@@ -19,4 +19,27 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: none;
+
+  .head-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-row {
+    width: 100%;
+
+    .form-inline {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .search-input {
+        width: 40%;
+      }
+
+      .search-btn {
+        width: 10%;
+      }
+    }
+  }
 }

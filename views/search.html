@@ -14,7 +14,12 @@
     <!-- 导航栏 -->
     {% include './layouts/header.html' %}
     <div class="container">
+      {% if list.length %}
       <strong>已找到以下结果：</strong>
+      {% else %}
+      <h3 class="no-list">找不到任何信息，建议换个关键字试试啦</h3>
+      {% endif %}
+
       <div class="row">
         <ul class="list-group list-group-flush">
           {% for key,item in list%}
@@ -35,7 +40,7 @@
             {% else %}
             <a
               href="javascript:;"
-              class="badge badge-success copy-one-link collection-btn"
+              class="badge badge-warning copy-one-link collection-btn"
               data-src="{{item.id}}"
               >采集并播放</a
             >
