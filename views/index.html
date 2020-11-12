@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页</title>
+    {% include './layouts/static.html' %}
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div class="container index-container">
+      <div class="row">
+        <h5>影视资源在线搜索</h5>
+      </div>
+      <div class="row">
+        <div class="form-inline">
+          <input
+            class="form-control mr-sm-2 search-input"
+            type="search"
+            placeholder="请输入搜索内容......"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0 search-btn">
+            搜索
+          </button>
+        </div>
+      </div>
+    </div>
+    {% include './layouts/footer.html' %}
+  </body>
+</html>
