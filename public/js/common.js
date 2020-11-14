@@ -19,7 +19,19 @@ $(function () {
   //搜索
   $(".search-btn").click(() => {
     const q = $(".search-input").val();
-    console.log("q", q);
+    if (q === "") {
+      return;
+    }
     window.location.href = `/search?q=${q}`;
+  });
+  //onkeyup
+  $(".search-input").on("keyup", e => {
+    if (e.keyCode && e.keyCode === 13) {
+      const q = $(".search-input").val();
+      if (q === "") {
+        return;
+      }
+      window.location.href = `/search?q=${q}`;
+    }
   });
 });

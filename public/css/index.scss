@@ -32,13 +32,16 @@ body {
       width: 100%;
       display: flex;
       justify-content: center;
+      padding: 0 20px;
+      box-sizing: border-box;
 
       .search-input {
-        width: 40%;
+        // width: 60%;
+        flex: 1;
       }
 
       .search-btn {
-        width: 10%;
+        width: 120px;
       }
     }
   }

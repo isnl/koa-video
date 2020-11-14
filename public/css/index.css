@@ -34,12 +34,14 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .index-container .search-row .form-inline .search-input {
-  width: 40%;
+  flex: 1;
 }
 
 .index-container .search-row .form-inline .search-btn {
-  width: 10%;
+  width: 120px;
 }
