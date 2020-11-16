@@ -6,7 +6,15 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>搜索结果</title>
+    <title>搜索结果 - 《{{keyword}}》</title>
+    <meta
+      name="keywords"
+      content="艾特网,艾特影视,艾特资源采集,在线电影资源,影视资源采集,影视采集,全网影视资源,影视资源站,在线影视,在线影院"
+    />
+    <meta
+      name="description"
+      content="艾特影视资源网是一个集影视采集播放于一身的资源网站"
+    />
     {% include './layouts/static.html' %}
   </head>
 
@@ -15,7 +23,10 @@
     {% include './layouts/header.html' %}
     <div class="container">
       {% if list.length %}
-      <strong>已找到以下结果：</strong>
+      <strong
+        >已为您找到
+        <span class="search-keywords">《{{keyword}}》</span> 以下结果：</strong
+      >
       {% else %}
       <h3 class="no-list">找不到任何信息，建议换个关键字试试啦</h3>
       {% endif %}

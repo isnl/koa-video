@@ -37,6 +37,10 @@ body .nav-container {
   min-height: 30rem;
 }
 
+.container .search-keywords {
+  color: red;
+}
+
 .video-container {
   display: flex;
   justify-content: center;

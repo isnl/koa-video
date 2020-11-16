@@ -52,12 +52,12 @@ function initEvent(player) {
   $(".copy-all").click(function () {
     let str = ``;
     $(".download-list li").each((index, item) => {
-      const [name, src] = $(item).children(".text").text().split("$");
+      const [name, src] = $(item).children(".text-muted").text().split("$");
       index === $(".download-list li").length - 1
         ? (str += `${name}$${src}`)
         : (str += `${name}$${src}\n`);
     });
-    str += `\n---哎呦影视采集:https://v.iiter.cn`;
+    str += `\n---艾特影视资源网:https://v.iiter.cn`;
     copyText(str, () => {
       layer.msg("复制成功");
     });
@@ -66,12 +66,12 @@ function initEvent(player) {
   $(".copy-all-link").click(function () {
     let str = ``;
     $(".download-list li").each((index, item) => {
-      const [name, src] = $(item).children(".text").text().split("$");
+      const [name, src] = $(item).children(".text-muted").text().split("$");
       index === $(".download-list li").length - 1
         ? (str += `${src}`)
         : (str += `${src}\n`);
     });
-    str += `\n---哎呦影视采集:https://v.iiter.cn`;
+    str += `\n---艾特影视资源网:https://v.iiter.cn`;
     copyText(str, () => {
       layer.msg("复制成功");
     });

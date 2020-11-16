@@ -48,7 +48,7 @@ router.get("/", async function (ctx, next) {
         item.status = false;
       }
     });
-    await ctx.render("search.html", { list: data });
+    await ctx.render("search.html", { list: data, keyword });
   } catch (error) {
     ctx.body = {
       message: error.message,

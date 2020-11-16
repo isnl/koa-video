@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404</title>
+    <title>您找的页面迷路了哦</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://static.iiter.cn/v.iiter.cn.ico"
+    />
     <style>
       html {
         width: 100%;
@@ -19,10 +24,20 @@
       }
       h1 {
         font-size: 64px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 a {
+        font-size: 14px;
       }
     </style>
   </head>
   <body>
-    <h1>404</h1>
+    <h1>
+      <span>404</span>
+      <a href="/">返回首页</a>
+    </h1>
   </body>
 </html>
