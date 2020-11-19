@@ -10,8 +10,13 @@ router.prefix("/search");
  * 根据关键字搜索  后面考虑不返回各大影视的擦边球类型的结果
  */
 router.get("/", async function (ctx, next) {
-  let originUrl; //源站
+  let origin, originUrl; //源站
   if ("o" in ctx.query) {
+    origin = ctx.query.o;
+    if (!Object.keys(BASE_URL).includes(origin)) {
+      error(ctx);
+      return;
+    }
     originUrl = BASE_URL[ctx.query.o];
   }
   if (!originUrl) {
@@ -22,19 +27,16 @@ router.get("/", async function (ctx, next) {
     keyword = ctx.query.q;
   }
   if (!keyword) {
-    ctx.body = {
-      message: "参数不合法",
-      status: false
-    };
+    error(ctx);
     return;
   }
   try {
     //先获取爬虫得到的数据，再取出本地的数据，用爬虫得到的数据比对本地的数据，优先展示采集过的数据
     const data = await getSearchResult(keyword, originUrl);
-    //这里暂时写死
-    let zuida = "zuidazy";
-    const listPath = path.resolve(__dirname, `../views/${zuida}/list.json`);
+    const listPath = path.resolve(__dirname, `../views/${origin}/list.json`);
     const listData = JSON.parse(await fs.readFileSync(listPath, "utf-8"));
+    let existArray = [];
+    let noExistArray = [];
     data.forEach(item => {
       let equal = false;
       listData.forEach(d => {
@@ -44,11 +46,16 @@ router.get("/", async function (ctx, next) {
       });
       if (equal) {
         item.status = true;
+        existArray.push(item);
       } else {
         item.status = false;
+        noExistArray.push(item);
       }
     });
-    await ctx.render("search.html", { list: data, keyword });
+    await ctx.render("search.html", {
+      list: [...existArray, ...noExistArray],
+      keyword
+    });
   } catch (error) {
     ctx.body = {
       message: error.message,
@@ -93,6 +100,15 @@ function getSearchResult(keyword, url) {
       resolve(urlArray);
     });
   });
+}
+/**
+ * 统一出错处理
+ */
+function error(context) {
+  context.body = {
+    status: false,
+    message: "参数不合法"
+  };
 }
 
 module.exports = router;

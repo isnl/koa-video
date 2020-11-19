@@ -11,6 +11,11 @@ var copyText = function (text, callback) {
     callback(text);
   }
 };
+function search() {
+  const q = $(".search-input").val();
+  if (q === "") return;
+  window.location.href = `/search?o=zuidazy&q=${q}`;
+}
 $(function () {
   //获取邮箱
   $(".get-email").click(() => {
@@ -18,20 +23,10 @@ $(function () {
   });
   //搜索
   $(".search-btn").click(() => {
-    const q = $(".search-input").val();
-    if (q === "") {
-      return;
-    }
-    window.location.href = `/search?q=${q}`;
+    search();
   });
-  //onkeyup
+  //按回车键搜索
   $(".search-input").on("keyup", e => {
-    if (e.keyCode && e.keyCode === 13) {
-      const q = $(".search-input").val();
-      if (q === "") {
-        return;
-      }
-      window.location.href = `/search?q=${q}`;
-    }
+    if (e.keyCode && e.keyCode === 13) search();
   });
 });
