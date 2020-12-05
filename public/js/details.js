@@ -1,26 +1,23 @@
 $(function () {
   const $btn = $(".play-list-box").children("button");
-  const [name, source] = $btn.eq(0).attr("data-src").split("$");
+  const [name, url] = $btn.eq(0).attr("data-src").split("$");
   //默认激活第一个按钮
   $btn.eq(0).addClass("active");
-  new Aliplayer(
-    {
-      id: "video-play",
-      source,
-      width: "100%",
-      height: "460px",
-      autoplay: true,
-      isLive: false,
-      rePlay: false,
-      playsinline: true,
-      preload: true,
-      controlBarVisibility: "click",
-      useH5Prism: true
-    },
-    function (player) {
-      initEvent(player);
+  const element = document.getElementById("dplayer");
+  const dp = new DPlayer({
+    element,
+    video: {
+      url,
+      type: "hls"
     }
-  );
+  });
+  dp.on("ended", function () {
+    //一集播放完了
+  });
+  dp.on("loadeddata", function () {
+    //一集播放完了
+    initEvent();
+  });
 });
 function initEvent(player) {
   //切换播放

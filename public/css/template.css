@@ -34,7 +34,8 @@ body .nav-container {
 }
 
 .container .video-play {
-  min-height: 30rem;
+  width: 100%;
+  height: 100%;
 }
 
 .container .search-keywords {

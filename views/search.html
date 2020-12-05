@@ -44,14 +44,20 @@
             {% if item.status %}
             <a
               href="{{'zuidazy/' + item.id}}"
-              class="badge badge-success copy-one-link"
+              class="badge badge-success"
               >在线播放</a
+            >
+            <a
+              href="javascript:;"
+              data-src="{{item.id}}"
+              class="badge badge-success update-btn"
+              >更新</a
             >
 
             {% else %}
             <a
               href="javascript:;"
-              class="badge badge-warning copy-one-link collection-btn"
+              class="badge badge-warning collection-btn"
               data-src="{{item.id}}"
               >采集并播放</a
             >

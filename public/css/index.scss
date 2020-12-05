@@ -46,3 +46,23 @@ body {
     }
   }
 }
+@media screen and (max-width: 414px) {
+  .head-row{
+    h3{
+      font-size: 1.6rem;
+    }
+  }
+  .index-container{
+    .search-row{
+      .form-inline{
+        padding: 0;
+        justify-content: space-between;
+        .search-btn{
+          width: 100px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+  
+}

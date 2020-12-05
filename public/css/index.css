@@ -45,3 +45,17 @@ body {
 .index-container .search-row .form-inline .search-btn {
   width: 120px;
 }
+
+@media screen and (max-width: 414px) {
+  .head-row h3 {
+    font-size: 1.6rem;
+  }
+  .index-container .search-row .form-inline {
+    padding: 0;
+    justify-content: space-between;
+  }
+  .index-container .search-row .form-inline .search-btn {
+    width: 100px;
+    margin-left: 20px;
+  }
+}

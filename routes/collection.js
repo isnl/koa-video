@@ -7,7 +7,7 @@ const { BASE_URL, BASE_CONSTANCE, NOT_FOUNT_MESSAGE } = require("../config");
 router.prefix("/collection");
 
 /**
- * 资源详情
+ * 采集
  */
 router.get("/", async function (ctx, next) {
   const { m, o = BASE_CONSTANCE.zuidazy } = ctx.query;
@@ -63,6 +63,69 @@ router.get("/", async function (ctx, next) {
     };
   }
 });
+
+/**
+ * 更新采集
+ */
+router.get("/update", async function (ctx, next) {
+  const { m, o = BASE_CONSTANCE.zuidazy } = ctx.query;
+  if (!m) {
+    ctx.body = {
+      message: "参数不合法",
+      status: false
+    };
+    return;
+  }
+  try {
+    // 写入详情.json文件
+    const data = await getDetailsByUrl(m, o);
+    //判断当前采集对象是否已经存在
+    let noSuffix = m.replace(".html", "");
+    const url = path.resolve(__dirname, `../views/${o}/json/${noSuffix}.json`);
+    const exist = await fs.existsSync(url);
+    if (exist) {
+      const oldData = await fs.readFileSync(url, "utf-8");
+      if (JSON.stringify(data) === oldData) {
+        ctx.body = {
+          message: "暂无更新",
+          status: false
+        };
+        return;
+      }
+    }
+
+    await fs.writeFileSync(
+      path.resolve(__dirname, `../views/${o}/json/${noSuffix}.json`),
+      JSON.stringify(data),
+      "utf-8"
+    );
+    //将当前Id和name写入list.json文件
+    const listPath = path.resolve(__dirname, `../views/${o}/list.json`);
+    const listData = JSON.parse(await fs.readFileSync(listPath, "utf-8"));
+    let existObj = listData.some(
+      item => item.id === m && item.name === data.name
+    );
+    //判断list.json中有无
+    if (!existObj) {
+      listData.push({
+        id: m,
+        name: data.name
+      });
+      await fs.writeFileSync(listPath, JSON.stringify(listData));
+    }
+    //采集成功后直接跳转至详情页面
+    ctx.body = {
+      status: true,
+      message: "采集成功"
+    };
+  } catch (error) {
+    ctx.body = {
+      message: error.message,
+      status: false
+    };
+  }
+});
+
 function getDetailsByUrl(m, o) {
   return new Promise((resolve, reject) => {
     request(`${BASE_URL[o]}/?m=${m}`, (err, res) => {
