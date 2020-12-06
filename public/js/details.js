@@ -11,21 +11,43 @@ $(function () {
       type: "hls"
     }
   });
-  dp.on("ended", function () {
+  dp.on("ended", () => {
     //一集播放完了
+    let index;
+    $btn.each((i, item) => {
+      if ($(item).hasClass("active")) {
+        index = i;
+      }
+    });
+    console.log(index, $btn.length - 1);
+    if (index < $btn.length - 1) {
+      $btn.eq(index).removeClass("active");
+      $btn.eq(index + 1).addClass("active");
+      const [name, url] = $btn
+        .eq(index + 1)
+        .attr("data-src")
+        .split("$");
+      dp.switchVideo({
+        url
+      });
+      dp.play();
+    }
   });
   dp.on("loadeddata", function () {
     //一集播放完了
-    initEvent();
+    initEvent(dp);
   });
 });
-function initEvent(player) {
+function initEvent(dp) {
   //切换播放
   $(".play-list-box")
     .children("button")
     .on("click", function () {
-      const [name, src] = $(this).attr("data-src").split("$");
-      player.loadByUrl(src);
+      const [name, url] = $(this).attr("data-src").split("$");
+      dp.switchVideo({
+        url
+      });
+      dp.play();
       $(this).siblings().removeClass("active");
       $(this).addClass("active");
     });
