@@ -1,5 +1,7 @@
 
-仅供学习交流使用，请勿用作商业用途。  
+这是一个全网影视采集解析播放的开源项目。
+
+**！仅供学习交流使用，请勿用作商业用途 ！**
 
 #### 说在前面
 
@@ -63,7 +65,7 @@
 
 #### 运作流程图
 
-![运作流程](https://static.iiter.cn/article/54f9f95ea29e2ffd23c300b79e0bb709.png)
+![运作流程](https://static.iiter.cn/article/12d08bf6513731ba8f90203c4549bb33.png)
 
 #### 目录结构
 
@@ -78,15 +80,18 @@
 
 #### 如何运行
 
-1.打开github地址: [https://github.com/isnl/koa-video](https://github.com/isnl/koa-video)  
+1.打开github远程地址: [https://github.com/isnl/koa-video](https://github.com/isnl/koa-video)  
 
-2.打开后把右上角这个东西点一下  
+2.打开后把右上角这个`Star`点一下  
 
 ![star](https://static.iiter.cn/article/3bbc16ffb5beb901ac739b76872dd69e.png)  
 
 3.克隆本仓库至本地
 ```bash
 https://github.com/isnl/koa-video.git
+
+//如果很慢建议clone国内源:  
+https://github.com.cnpmjs.org/isnl/koa-video.git
 ```
 4.安装依赖
 ```bash
