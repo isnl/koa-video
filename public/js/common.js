@@ -17,10 +17,6 @@ function search() {
   window.location.href = `/search?o=zuidazy&q=${q}`;
 }
 $(function () {
-  //获取邮箱
-  $(".get-email").click(() => {
-    layer.msg("htmlcs@163.com");
-  });
   //搜索
   $(".search-btn").click(() => {
     search();
