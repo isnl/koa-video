@@ -79,6 +79,7 @@
 #### 如何运行
 
 1.打开github地址: [https://github.com/isnl/koa-video](https://github.com/isnl/koa-video)  
+
 2.打开后把右上角这个东西点一下  
 
 ![star](https://static.iiter.cn/article/3bbc16ffb5beb901ac739b76872dd69e.png)
