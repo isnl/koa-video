@@ -76,7 +76,7 @@ function initEvent(dp) {
         ? (str += `${name}$${src}`)
         : (str += `${name}$${src}\n`);
     });
-    str += `\n---艾特影视资源网:https://v.iiter.cn`;
+    str += `\n---艾特影视资源网:https://github.com/isnl/koa-video`;
     copyText(str, () => {
       layer.msg("复制成功");
     });
@@ -90,7 +90,7 @@ function initEvent(dp) {
         ? (str += `${src}`)
         : (str += `${src}\n`);
     });
-    str += `\n---艾特影视资源网:https://v.iiter.cn`;
+    str += `\n---艾特影视资源网:https://github.com/isnl/koa-video`;
     copyText(str, () => {
       layer.msg("复制成功");
     });
