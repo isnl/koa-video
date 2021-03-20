@@ -82,7 +82,8 @@
 
 2.打开后把右上角这个东西点一下  
 
-![star](https://static.iiter.cn/article/3bbc16ffb5beb901ac739b76872dd69e.png)
+![star](https://static.iiter.cn/article/3bbc16ffb5beb901ac739b76872dd69e.png)  
+
 3.克隆本仓库至本地
 ```bash
 https://github.com/isnl/koa-video.git
